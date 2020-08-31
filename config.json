@@ -11,5 +11,10 @@
     "uri": "mongodb://localhost:27020/",
     "dbname": "ikea-orders",
     "ordersCollectionName": "orders"
+  },
+  "mongoose": {
+    "uri": "mongodb://localhost:27020/",
+    "dbname": "ikea-orders",
+    "ordersCollectionName": "orders"
   }
 }

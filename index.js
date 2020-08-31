@@ -3,6 +3,9 @@ const express = require('express');
 
 const config = require('./libs/config');
 
+// eslint-disable-next-line no-unused-vars
+const mongoose = require('./libs/connectMongoose');
+
 /** ROUTES * */
 const orders = require('./routes/orders');
 /** ROUTES * */
