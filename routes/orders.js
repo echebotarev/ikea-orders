@@ -6,7 +6,16 @@ const Client = require('./../libs/mongoClient');
 const router = express.Router();
 
 router
-  .get('/', (req, res) => {
+  .get('/:orderId', (req, res) => {
+    res.send(req.cookies.cookieId);
+  })
+
+  .post('/', (req, res) => {
+    const { qnt } = req.body;
+    const { identifier, price } = req.body.product;
+
+    console.log('Body', identifier, price, qnt);
+
     res.send(req.cookies.cookieId);
   });
 
