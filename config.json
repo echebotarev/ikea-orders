@@ -1,0 +1,15 @@
+{
+  "host": "localhost",
+  "port": 7070,
+  "security": {
+    "cookieName": "cookieId",
+    "/*cookieLifeComment*/": "Year",
+    "cookieLife": 31536000000,
+    "tokenLife": 3600
+  },
+  "mongo": {
+    "uri": "mongodb://localhost:27020/",
+    "dbname": "ikea-orders",
+    "ordersCollectionName": "orders"
+  }
+}
