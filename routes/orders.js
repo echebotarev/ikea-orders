@@ -5,6 +5,9 @@ const Client = require('./../libs/mongoClient');
 
 const router = express.Router();
 
-router;
+router
+  .get('/', (req, res) => {
+    res.send(req.cookies.cookieId);
+  });
 
 module.exports = router;
