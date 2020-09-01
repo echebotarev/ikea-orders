@@ -1,5 +1,6 @@
 const express = require('express');
-const fetch = require('node-fetch');
+const db = require('./../libs/db');
+
 const config = require('./../libs/config');
 
 const router = express.Router();
@@ -9,13 +10,21 @@ router
     res.send(req.cookies.cookieId);
   })
 
-  .post('/', (req, res) => {
+  .post('/', async (req, res) => {
+    const { cookieId } = req.cookies;
     const { qnt } = req.body;
     const { identifier, price } = req.body.product;
 
-    console.log('Body', identifier, price, qnt);
+    let order = await db.Order.get(cookieId);
 
-    res.send(req.cookies.cookieId);
+    if (order) {
+      order = await db.Order.addProduct(order, cookieId, { qnt, identifier, price });
+    }
+    else {
+      order = await db.Order.create(cookieId, { qnt, identifier, price });
+    }
+
+    res.send(order);
   });
 
 module.exports = router;

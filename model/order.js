@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const Order = new Schema({
-  refsCookieId: {
-    type: mongoose.Schema.Types.ObjectId,
+  cookieId: {
+    type: String,
     default: null
   },
 
-  refsUserId: {
+  userId: {
     type: mongoose.Schema.Types.ObjectId,
     default: null
   },
@@ -56,7 +56,8 @@ const Order = new Schema({
   delivered: {
     type: Boolean,
     default: false
-  }
+  },
+  createdAt: { type: Date, default: Date.now }
 });
 
 // eslint-disable-next-line no-underscore-dangle,func-names
