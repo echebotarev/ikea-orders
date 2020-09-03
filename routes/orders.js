@@ -12,16 +12,15 @@ router
 
   .post('/', async (req, res) => {
     const { cookieId } = req.cookies;
-    const { qnt } = req.body;
-    const { identifier, price } = req.body.product;
+    const { qnt, product } = req.body;
 
     let order = await db.Order.get(cookieId);
 
     if (order) {
-      order = await db.Order.addProduct(order, cookieId, { qnt, identifier, price });
+      order = await db.Order.addProduct(order, cookieId, Object.assign(product, { qnt }));
     }
     else {
-      order = await db.Order.create(cookieId, { qnt, identifier, price });
+      order = await db.Order.create(cookieId, Object.assign(product, { qnt }));
     }
 
     res.send(order);
