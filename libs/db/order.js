@@ -57,9 +57,10 @@ const Order = {
     );
 
     const order = await Order.get(cookieId);
-    order.products = order.products.filter((product) => product.qnt > 0);
-
-    order.save();
+    if (order) {
+      order.products = order.products.filter((product) => product.qnt > 0);
+      order.save();
+    }
 
     return order;
   }
