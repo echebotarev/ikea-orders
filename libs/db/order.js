@@ -46,7 +46,23 @@ const Order = {
 
   async deleteOrder(cookieId) {},
 
-  async deleteProduct(cookieId, productId) {}
+  async deleteProduct(cookieId, { productId, qnt }) {
+    const decrement = { $inc: { 'products.$.qnt': -qnt } };
+    await OrderModel.updateOne(
+      {
+        cookieId,
+        'products.identifier': productId
+      },
+      decrement
+    );
+
+    const order = await Order.get(cookieId);
+    order.products = order.products.filter((product) => product.qnt > 0);
+
+    order.save();
+
+    return order;
+  }
 };
 
 module.exports = Order;

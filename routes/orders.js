@@ -6,8 +6,10 @@ const config = require('./../libs/config');
 const router = express.Router();
 
 router
-  .get('/:orderId', (req, res) => {
-    res.send(req.cookies.cookieId);
+  .get('/:orderId?', async (req, res) => {
+    const { cookieId } = req.cookies;
+    const order = await db.Order.get(cookieId);
+    res.send(order);
   })
 
   .post('/', async (req, res) => {
@@ -24,6 +26,17 @@ router
     }
 
     res.send(order);
+  })
+
+  .delete('/:productId', async (req, res) => {
+    const { cookieId } = req.cookies;
+    const { productId } = req.params;
+    const { qnt } = req.query;
+
+    const order = await db.Order.deleteProduct(cookieId, { productId, qnt });
+
+    res.send(order);
+
   });
 
 module.exports = router;
