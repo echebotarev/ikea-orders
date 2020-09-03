@@ -37,10 +37,11 @@ const Order = {
 
     if (result.nModified === 0) {
       await order.products.push(payload);
-      order.save();
     }
 
-    return order;
+    await order.save();
+
+    return Order.get(cookieId);
   },
 
   async deleteOrder(cookieId) {},
