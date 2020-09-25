@@ -37,6 +37,13 @@ router
 
     res.send(order);
 
+  })
+
+  .put('/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    const order = await db.Order.updateOrder(orderId, req.body);
+
+    res.send(order);
   });
 
 module.exports = router;

@@ -6,11 +6,12 @@ const Order = {
     if (Array.isArray(cookieId)) {
       return OrderModel.find({
         cookieId: { $in: cookieId },
-        deleted: false
+        deleted: false,
+        paid: false
       });
     }
 
-    return OrderModel.findOne({ cookieId, deleted: false });
+    return OrderModel.findOne({ cookieId, deleted: false, paid: false });
   },
 
   async create(cookieId, payload) {
@@ -58,10 +59,17 @@ const Order = {
 
     const order = await Order.get(cookieId);
     if (order) {
-      order.products = order.products.filter((product) => product.qnt > 0);
+      order.products = order.products.filter(product => product.qnt > 0);
       order.save();
     }
 
+    return order;
+  },
+
+  async updateOrder(orderId, payload) {
+    await OrderModel.updateOne({ _id: orderId }, payload);
+
+    const order = await OrderModel.findOne({ _id: orderId });
     return order;
   }
 };

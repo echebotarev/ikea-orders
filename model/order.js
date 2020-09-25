@@ -17,6 +17,12 @@ const Order = new Schema({
     default: []
   },
 
+  // нужна ли сборка
+  isAssembly: {
+    type: Boolean,
+    default: false
+  },
+
   // собран ли заказ
   assembled: {
     type: Boolean,
