@@ -1,7 +1,7 @@
 const express = require('express');
 const db = require('./../libs/db');
 
-const config = require('./../libs/config');
+const sendMail = require('./../libs/sgMail');
 
 const router = express.Router();
 
@@ -41,7 +41,10 @@ router
 
   .put('/:orderId', async (req, res) => {
     const { orderId } = req.params;
+    const { to } = req.body;
     const order = await db.Order.updateOrder(orderId, req.body);
+
+    sendMail(to, Object.assign({}, order.toJSON(), req.body));
 
     res.send(order);
   });
