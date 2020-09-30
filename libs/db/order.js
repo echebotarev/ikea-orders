@@ -31,7 +31,10 @@ const Order = {
     const result = await OrderModel.updateOne(
       {
         cookieId,
-        'products.identifier': payload.identifier
+        'products.identifier': payload.identifier,
+        // здесь мы предполагаем, что у user'a существует только один заказ
+        // без этого товар может добавляться в предыдущий оплаченный заказ
+        paid: false
       },
       increment
     );
@@ -52,7 +55,10 @@ const Order = {
     await OrderModel.updateOne(
       {
         cookieId,
-        'products.identifier': productId
+        'products.identifier': productId,
+        // здесь мы предполагаем, что у user'a существует только один заказ
+        // без этого товар может добавляться в предыдущий оплаченный заказ
+        paid: false
       },
       decrement
     );
