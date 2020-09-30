@@ -75,8 +75,7 @@ const Order = {
   async updateOrder(orderId, payload) {
     await OrderModel.updateOne({ _id: orderId }, payload);
 
-    const order = await OrderModel.findOne({ _id: orderId });
-    return order;
+    return OrderModel.findOne({ _id: orderId });
   }
 };
 
