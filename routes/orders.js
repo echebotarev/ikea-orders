@@ -41,10 +41,10 @@ router
 
   .put('/:orderId', async (req, res) => {
     const { orderId } = req.params;
-    const { to } = req.body;
+    const { email } = req.body;
     const order = await db.Order.updateOrder(orderId, req.body);
 
-    sendMail(to, Object.assign({}, order.toJSON(), req.body));
+    sendMail(email, Object.assign({}, order.toJSON(), req.body));
 
     res.send(order);
   });
