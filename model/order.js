@@ -24,6 +24,26 @@ const Order = new Schema({
     default: null
   },
 
+  name: {
+    type: String,
+    default: null
+  },
+
+  address: {
+    type: String,
+    default: null
+  },
+
+  email: {
+    type: String,
+    default: null
+  },
+
+  phone: {
+    type: String,
+    default: null
+  },
+
   products: {
     type: Array,
     default: []
