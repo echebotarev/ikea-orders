@@ -40,9 +40,16 @@ router
   })
 
   .put('/:orderId', async (req, res) => {
+    const { cookieId } = req.cookies;
     const { orderId } = req.params;
     const { email } = req.body;
-    const order = await db.Order.updateOrder(orderId, req.body);
+
+    let user = await db.User.get(cookieId);
+    if (user === null) {
+      user = await db.User.create({ cookieId, ...req.body });
+    }
+
+    const order = await db.Order.updateOrder(orderId, { userId: user.id, ...req.body });
 
     sendMail(email, Object.assign({}, order.toJSON(), req.body));
 
