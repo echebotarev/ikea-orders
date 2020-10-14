@@ -75,13 +75,17 @@ const Order = new Schema({
     type: Boolean,
     default: false
   },
+  payMethod: {
+    type: String,
+    default: ''
+  },
   // оплачен
   paid: {
     type: Boolean,
     default: false
   },
-  // оплачивается
-  paying: {
+  // заказ оформлен
+  checkout: {
     type: Boolean,
     default: false
   },

@@ -7,11 +7,11 @@ const Order = {
       return OrderModel.find({
         cookieId: { $in: cookieId },
         deleted: false,
-        paid: false
+        checkout: false
       });
     }
 
-    return OrderModel.findOne({ cookieId, deleted: false, paid: false });
+    return OrderModel.findOne({ cookieId, deleted: false, checkout: false });
   },
 
   async create(cookieId, payload) {
