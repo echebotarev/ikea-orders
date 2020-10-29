@@ -34,7 +34,7 @@ const Order = {
         'products.identifier': payload.identifier,
         // здесь мы предполагаем, что у user'a существует только один заказ
         // без этого товар может добавляться в предыдущий оплаченный заказ
-        paid: false
+        checkout: false
       },
       increment
     );
@@ -58,7 +58,7 @@ const Order = {
         'products.identifier': productId,
         // здесь мы предполагаем, что у user'a существует только один заказ
         // без этого товар может добавляться в предыдущий оплаченный заказ
-        paid: false
+        checkout: false
       },
       decrement
     );
