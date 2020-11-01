@@ -8,6 +8,7 @@ const mongoose = require('./libs/connectMongoose');
 
 /** ROUTES * */
 const orders = require('./routes/orders');
+const panel = require('./routes/panel');
 /** ROUTES * */
 
 const setMiddlewares = require('./libs/setMiddlewares');
@@ -19,6 +20,7 @@ setMiddlewares(app, path.join(__dirname, 'middlewares'));
 
 app.get('/', (req, res) => res.end('API is Ok'));
 app.use('/orders', orders);
+app.use('/panel', panel);
 
 app.listen(config.get('port'), () => {
   console.log(`Listening on port ${config.get('port')}!`);

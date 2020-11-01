@@ -76,6 +76,10 @@ const Order = {
     await OrderModel.updateOne({ _id: orderId }, payload);
 
     return OrderModel.findOne({ _id: orderId });
+  },
+
+  async getOrders() {
+    return OrderModel.find();
   }
 };
 
