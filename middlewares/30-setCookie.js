@@ -9,7 +9,7 @@ const setCookie = options => (req, res, next) => {
     randomNumber = randomNumber.substring(2, randomNumber.length);
     res.cookie(name, randomNumber, {
       maxAge,
-      httpOnly: true
+      httpOnly: false
     });
 
     // дабы подстраховаться.
