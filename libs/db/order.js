@@ -78,8 +78,8 @@ const Order = {
     return OrderModel.findOne({ _id: orderId });
   },
 
-  async getOrders() {
-    return OrderModel.find();
+  async getOrders(payload) {
+    return OrderModel.find(payload);
   }
 };
 

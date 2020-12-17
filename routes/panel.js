@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .get('/SNMb0pmYka0bSi', async (req, res) => {
-    const orders = await db.Order.getOrders();
+    const orders = await db.Order.getOrders({ checkout: true });
     res.send(orders);
   });
 
