@@ -99,7 +99,8 @@ const Order = new Schema({
     type: Boolean,
     default: false
   },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  checkoutCreatedAt: { type: Date, default: null }
 });
 
 // eslint-disable-next-line no-underscore-dangle,func-names

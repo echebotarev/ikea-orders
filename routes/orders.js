@@ -49,7 +49,11 @@ router
       user = await db.User.create({ cookieId, ...req.body });
     }
 
-    const order = await db.Order.updateOrder(orderId, { userId: user.id, ...req.body });
+    const order = await db.Order.updateOrder(orderId, {
+      userId: user.id,
+      checkoutCreatedAt: Date.now(),
+      ...req.body
+    });
 
     sendMail(email, Object.assign({}, order.toJSON(), req.body));
 
