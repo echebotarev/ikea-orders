@@ -22,6 +22,9 @@ let personalization = {
   bcc: [
     {
       email: '9111721308@mail.ru'
+    },
+    {
+      email: 'dysya84@mail.ru'
     }
   ],
   dynamic_template_data: {
