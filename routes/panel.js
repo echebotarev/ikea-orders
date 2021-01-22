@@ -14,6 +14,9 @@ router.get('/SNMb0pmYka0bSi/:date?', async (req, res) => {
       : {}
   );
 
+  console.log('Date', date);
+  console.log('Payload', payload);
+
   const orders = await db.Order.getOrders(payload);
   res.send(orders);
 });
