@@ -51,6 +51,7 @@ let personalization = {
 
 module.exports = (to, data) => {
   personalization.bcc = personalization.bcc.filter(item => item.email !== to.toLowerCase());
+  console.console.log('BCC', personalization.bcc);
 
   personalization.to = [{ email: to }];
   personalization.dynamic_template_data = data;
