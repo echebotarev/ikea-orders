@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('./../libs/db');
 
 const sendMail = require('./../libs/sgMail');
+const crm = require('./../libs/crm');
 
 const router = express.Router();
 
@@ -55,7 +56,10 @@ router
       ...req.body
     });
 
-    sendMail(email, Object.assign({}, order.toJSON(), req.body));
+    const output = Object.assign({}, order.toJSON(), req.body);
+
+    sendMail(email, output);
+    crm.send(output);
 
     res.send(order);
   });
