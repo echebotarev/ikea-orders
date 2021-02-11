@@ -28,6 +28,15 @@ const User = new Schema({
     default: null
   },
 
+  /**
+   * Вложенные объекты будут выглядеть:
+   * { id: [id], createdAt: [Date.now] }
+   * */
+  goodsWaiting: {
+    type: Array,
+    default: []
+  },
+
   createdAt: { type: Date, default: Date.now }
 });
 
