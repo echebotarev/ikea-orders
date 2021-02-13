@@ -39,6 +39,7 @@ const User = {
         email: payload.email,
         id: payload.id,
         shopId: payload.shopId,
+        type: payload.type,
         createdAt: Date.now()
       });
       await user.save();
