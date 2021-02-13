@@ -30,9 +30,14 @@ const User = new Schema({
 
   /**
    * Вложенные объекты будут выглядеть:
-   * { id: [id], createdAt: [Date.now] }
+   * {
+   *    id: [id],
+   *    shopId: [shopId],
+   *    email: [email],
+   *    createdAt: [Date.now]
+   * }
    * */
-  goodsWaiting: {
+  expectedItems: {
     type: Array,
     default: []
   },
