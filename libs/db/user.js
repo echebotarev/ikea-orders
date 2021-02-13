@@ -18,6 +18,10 @@ const User = {
     return user;
   },
 
+  async find(payload) {
+    return UserModel.find(payload);
+  },
+
   async addExpectedItem(payload) {
     const { cookieId } = payload;
     const { user } = payload;
