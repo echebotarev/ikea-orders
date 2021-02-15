@@ -6,6 +6,8 @@ const db = require('./../libs/db');
 
 const router = express.Router();
 
+const sgMail = require('../libs/sgMail');
+
 const checkItemAvailable = async payload =>
   new Promise((res, rej) => {
     const { shopId, type, id } = payload;
@@ -20,7 +22,9 @@ const checkItemAvailable = async payload =>
       }
     })
       .then(response => response.json())
-      .then(available => setTimeout(() => res(Object.assign(payload, { available })), 300));
+      .then(available =>
+        setTimeout(() => res(Object.assign(payload, { available })), 300)
+      );
   });
 const checkItemsAvailable = async (items, acc = []) => {
   if (items.length === 0) {
@@ -32,10 +36,14 @@ const checkItemsAvailable = async (items, acc = []) => {
   // eslint-disable-next-line no-return-await
   return await checkItemsAvailable(items, acc);
 };
+const getProducts = async ids =>
+  fetch(
+    `http://localhost:8080/api/v1/products?ids=${ids.join(',')}`
+  ).then(response => response.json());
 
 router
   .get('/check-available', async () => {
-    const users = await db.User.find({
+    let users = await db.User.find({
       expectedItems: { $exists: true, $not: { $size: 0 } }
     });
     const expectedItems = [];
@@ -45,8 +53,50 @@ router
       expectedItems.push(...user.expectedItems);
     }
 
-    const results = await checkItemsAvailable(expectedItems);
-    console.log('Results', results);
+    // Получаем данные о наличии
+    let results = await checkItemsAvailable(expectedItems);
+
+    // оставляем те, что появились
+    results = results.filter(
+      result =>
+        result.available.StockAvailability.RetailItemAvailability.AvailableStock
+          .$ > 0
+    );
+    const ids = results.map(result => result.id);
+
+    // eslint-disable-next-line new-cap
+    users = await db.User.find({ 'expectedItems.id': { $in: ids } });
+    // удаляем появившиеся из ожидаемых
+    users.map(user => {
+      // eslint-disable-next-line no-param-reassign
+      user.expectedItems = user.expectedItems.filter(
+        item => !ids.includes(item.id)
+      );
+      user.save();
+    });
+
+    const products = await getProducts(ids);
+
+    // формируем товары по пользователям, чтобы не дублировать письма, если
+    // клиент ждет несколько товаров
+    const output = {};
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < results.length; i++) {
+      const result = results[i];
+      output[result.email] = output[result.email]
+        ? [...output[result.email], result.id]
+        : [result.id];
+    }
+
+    // отправляем
+    Object.entries(output).forEach(([email, identifiers]) =>
+      sgMail(email, {
+        template_id: 'd-fd20e725203b4591b653c60f45fe60ba',
+        products: products.filter(product =>
+          identifiers.includes(product.identifier)
+        )
+      })
+    );
   })
   .put('/', async (req, res) => {
     const { cookieId } = req.cookies;

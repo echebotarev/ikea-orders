@@ -58,6 +58,7 @@ module.exports = (to, data) => {
       email: 'dysya84@mail.ru'
     }
   ];
+  msg.template_id = data.template_id || msg.template_id;
   personalization.bcc = personalization.bcc.filter(item => item.email !== to.toLowerCase());
 
   personalization.to = [{ email: to }];
