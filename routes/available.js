@@ -42,7 +42,7 @@ const getProducts = async ids =>
   ).then(response => response.json());
 
 router
-  .get('/check-available', async () => {
+  .get('/check-available', async (req, res) => {
     console.log('Check Available');
 
     let users = await db.User.find({
@@ -99,6 +99,8 @@ router
         )
       })
     );
+
+    res.send('Ok');
   })
   .put('/', async (req, res) => {
     const { cookieId } = req.cookies;
