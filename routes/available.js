@@ -43,6 +43,8 @@ const getProducts = async ids =>
 
 router
   .get('/check-available', async () => {
+    console.log('Check Available');
+
     let users = await db.User.find({
       expectedItems: { $exists: true, $not: { $size: 0 } }
     });
