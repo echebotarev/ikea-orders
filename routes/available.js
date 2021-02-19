@@ -61,6 +61,8 @@ router
       expectedItems.push(...user.expectedItems);
     }
 
+    console.log('Expected', expectedItems);
+
     // Получаем данные о наличии
     let results = await checkItemsAvailable(expectedItems);
 
@@ -71,6 +73,7 @@ router
           .$ > 0
     );
     const ids = results.map(result => result.id);
+    console.log('Results', results);
 
     // eslint-disable-next-line new-cap
     users = await db.User.find({ 'expectedItems.id': { $in: ids } });
