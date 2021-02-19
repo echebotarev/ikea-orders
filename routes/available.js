@@ -21,7 +21,13 @@ const checkItemAvailable = async payload =>
         Contract: '37249'
       }
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status !== 200) {
+          return null;
+        }
+
+        return response.json();
+      })
       .then(available =>
         setTimeout(() => res(Object.assign(payload, { available })), 300)
       );
@@ -61,7 +67,7 @@ router
     // оставляем те, что появились
     results = results.filter(
       result =>
-        result.available.StockAvailability.RetailItemAvailability.AvailableStock
+        result.available && result.available.StockAvailability.RetailItemAvailability.AvailableStock
           .$ > 0
     );
     const ids = results.map(result => result.id);
