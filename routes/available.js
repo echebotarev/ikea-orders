@@ -46,6 +46,11 @@ const getProducts = async ids =>
   fetch(
     `http://localhost:8080/api/v1/products?ids=${ids.join(',')}`
   ).then(response => response.json());
+const updateProduct = payload =>
+  fetch(
+    `http://localhost:8080/api/v1/available/${payload.type}/${payload.id}`,
+    { method: 'PUT' }
+  );
 
 router
   .get('/check-available', async (req, res) => {
@@ -61,8 +66,6 @@ router
       expectedItems.push(...user.expectedItems);
     }
 
-    console.log('Expected', expectedItems);
-
     // Получаем данные о наличии
     let results = await checkItemsAvailable(expectedItems);
 
@@ -73,7 +76,6 @@ router
           .$ > 0
     );
     const ids = results.map(result => result.id);
-    console.log('Results', results);
 
     // eslint-disable-next-line new-cap
     users = await db.User.find({ 'expectedItems.id': { $in: ids } });
@@ -94,6 +96,13 @@ router
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < results.length; i++) {
       const result = results[i];
+
+      // посылаем сигнал в Rest, чтобы обновить наличи товара
+      updateProduct({
+        id: result.id,
+        type: result.type
+      });
+
       output[result.email] = output[result.email]
         ? [...output[result.email], result.id]
         : [result.id];
