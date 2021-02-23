@@ -5,6 +5,7 @@ sgMail.setApiKey(config.get('SENDGRID_API_KEY'));
 
 const getCosts = (price, qnt) => ({ price, priceTotal: price * qnt });
 
+const orderTemplateId = 'd-230c4bb4715b49339d6c4804f58efdb8';
 let msg = {
   from: {
     email: 'info@doma-doma.kz'
@@ -74,7 +75,7 @@ module.exports = (to, data) => {
   //     email: 'dysya84@mail.ru'
   //   }
   // ];
-  msg.template_id = data.template_id || msg.template_id;
+  msg.template_id = data.template_id || orderTemplateId;
 
   // если речь о сообщениях с заказом, то отсылаем мне и Даше,
   // если о чем то другом, отсылаем только мне
