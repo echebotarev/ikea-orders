@@ -71,9 +71,15 @@ router
 
     // оставляем те, что появились
     results = results.filter(
-      result =>
-        result.available && result.available.StockAvailability.RetailItemAvailability.AvailableStock
-          .$ > 0
+      result => {
+        if (result.available && result.available.StockAvailability.RetailItemAvailability) {
+          return result.available.StockAvailability.RetailItemAvailability.AvailableStock.$ > 0;
+        }
+        else {
+          console.log('Result', result);
+          return false;
+        }
+      }
     );
     const ids = results.map(result => result.id);
 
