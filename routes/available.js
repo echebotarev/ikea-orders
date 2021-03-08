@@ -76,7 +76,6 @@ router
           return result.available.StockAvailability.RetailItemAvailability.AvailableStock.$ > 0;
         }
         else {
-          console.log('Result', result);
           return false;
         }
       }
