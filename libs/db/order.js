@@ -73,6 +73,11 @@ const Order = {
   },
 
   async updateOrder(orderId, payload) {
+    // В логах проскакивают ошибки. Хочу найти их
+    if (!orderId) {
+      console.error('Payload', payload);
+    }
+
     await OrderModel.updateOne({ _id: orderId }, payload);
 
     return OrderModel.findOne({ _id: orderId });

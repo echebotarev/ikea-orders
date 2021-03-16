@@ -103,7 +103,7 @@ router
       const result = results[i];
 
       // посылаем сигнал в Rest, чтобы обновить наличи товара
-      updateProduct({
+      await updateProduct({
         id: result.id,
         type: result.type
       });
