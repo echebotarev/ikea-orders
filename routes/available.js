@@ -7,37 +7,21 @@ const db = require('./../libs/db');
 const router = express.Router();
 
 const sgMail = require('../libs/sgMail');
+const getAvailable = require('../libs/getAvailable');
+const timeout = require('../libs/timeout');
 
-const checkItemAvailable = async payload =>
-  new Promise((res, rej) => {
-    const { shopId, type, id } = payload;
-    const url = `https://iows.ikea.com/retail/iows/ru/ru/stores/${shopId}/availability/${type}/${id}`;
-    fetch(url, {
-      headers: {
-        Authority: 'iows.ikea.com',
-        Accept: 'application/vnd.ikea.iows+json;version=1.0',
-        Origin: 'https://order.ikea.com',
-        Consumer: 'MAMMUT',
-        Contract: '37249'
-      }
-    })
-      .then(response => {
-        if (response.status !== 200) {
-          return null;
-        }
-
-        return response.json();
-      })
-      .then(available =>
-        setTimeout(() => res(Object.assign(payload, { available })), 300)
-      );
-  });
+const checkItemAvailable = async payload => {
+  const result = await getAvailable(payload);
+  return Object.assign(payload, result);
+};
 const checkItemsAvailable = async (items, acc = []) => {
   if (items.length === 0) {
     return acc;
   }
 
   const result = await checkItemAvailable(items.splice(0, 1)[0]);
+  await timeout(300);
+
   acc.push(result);
   // eslint-disable-next-line no-return-await
   return await checkItemsAvailable(items, acc);

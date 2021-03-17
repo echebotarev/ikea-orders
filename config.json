@@ -1,6 +1,7 @@
 {
   "host": "localhost",
   "port": 7070,
+  "availableUrl": "http://localhost:9090/available",
   "security": {
     "cookieName": "cookieId",
     "/*cookieLifeComment*/": "Year",
