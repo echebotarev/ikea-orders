@@ -87,10 +87,10 @@ router
       const result = results[i];
 
       // посылаем сигнал в Rest, чтобы обновить наличи товара
-      await updateProduct({
-        id: result.id,
-        type: result.type
-      });
+      // await updateProduct({
+      //   id: result.id,
+      //   type: result.type
+      // });
 
       output[result.email] = output[result.email]
         ? [...output[result.email], result.id]
