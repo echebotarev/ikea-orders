@@ -79,8 +79,16 @@ module.exports = (to, data) => {
 
   // если речь о сообщениях с заказом, то отсылаем мне и Даше,
   // если о чем то другом, отсылаем только мне
-  personalization.bcc = data.template_id ? personalization.bcc.other : personalization.bcc.orders;
-  personalization.bcc = personalization.bcc.filter(item => item.email !== to.toLowerCase());
+  personalization.bcc = data.template_id
+    ? personalization.bcc.other
+    : personalization.bcc.orders;
+  personalization.bcc = personalization.bcc.filter(
+    item => item.email !== to.toLowerCase()
+  );
+  // фильтруем Дашину почту, чтобы ей не приходили тестовые письма
+  personalization.bcc = personalization.bcc.filter(
+    item => !(item.email === 'dysya84@mail.ru' && to === 'e.chebotarew@ya.ru')
+  );
 
   personalization.to = [{ email: to }];
   personalization.dynamic_template_data = data;
