@@ -56,8 +56,8 @@ router
     // оставляем те, что появились
     results = results.filter(
       result => {
-        if (result.available && result.available.StockAvailability.RetailItemAvailability) {
-          return result.available.StockAvailability.RetailItemAvailability.AvailableStock.$ > 0;
+        if (result.StockAvailability && result.StockAvailability.RetailItemAvailability) {
+          return parseInt(result.StockAvailability.RetailItemAvailability.AvailableStock['@']) > 0;
         }
         else {
           return false;
