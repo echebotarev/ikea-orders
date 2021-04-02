@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 
 const crm = {
   send(data) {
-    fetch('https://brokenxerox.ru/amo/doma-doma/toamo.php', {
+    fetch('https://brokenxerox.ru/amo/domadoma/toamo.php', {
       method: 'post',
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' }
