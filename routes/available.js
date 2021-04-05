@@ -110,8 +110,7 @@ router
     res.send('Ok');
   })
   .put('/', async (req, res) => {
-    const { cookieId } = req.cookies;
-    const { shopId = samaraShopId } = req.body;
+    const { cookieId, ikeaShopId } = req.cookies;
     const { email } = req.body;
     const { id } = req.body;
     const { type } = req.body;
@@ -130,7 +129,7 @@ router
 
     user = await db.User.addExpectedItem({
       ...req.body,
-      shopId,
+      ikeaShopId,
       cookieId,
       user
     });

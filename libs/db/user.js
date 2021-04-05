@@ -38,7 +38,7 @@ const User = {
       await user.expectedItems.push({
         email: payload.email,
         id: payload.id,
-        shopId: payload.shopId,
+        ikeaShopId: payload.ikeaShopId,
         type: payload.type,
         createdAt: Date.now()
       });
