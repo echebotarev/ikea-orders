@@ -6,7 +6,7 @@ sgMail.setApiKey(config.get('SENDGRID_API_KEY'));
 const orderTemplateId = 'd-230c4bb4715b49339d6c4804f58efdb8';
 let msg = {
   from: {
-    email: 'info@doma-doma.kz'
+    email: 'info@doma-doma.org'
   },
   personalizations: [],
   // шаблон списка товаров при заказе
