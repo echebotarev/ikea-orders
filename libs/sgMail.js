@@ -51,35 +51,38 @@ let personalization = {
 
 module.exports = (to, data) => {
   personalization.bcc = {
-    orders: [
-      {
-        email: '9111721308@mail.ru'
-      },
-      {
-        email: 'dysya84@mail.ru'
-      }
-    ],
+    orders: {
+      '001': [
+        {
+          email: '9111721308@mail.ru'
+        },
+        {
+          email: 'dysya84@mail.ru'
+        }
+      ],
+      '002': [
+        {
+          email: '9111721308@mail.ru'
+        },
+        {
+          email: 'zakaz@ikea13.ru'
+        }
+      ]
+    },
     other: [
       {
         email: '9111721308@mail.ru'
       }
     ]
   };
-  // personalization.bcc = [
-  //   {
-  //     email: '9111721308@mail.ru'
-  //   },
-  //   {
-  //     email: 'dysya84@mail.ru'
-  //   }
-  // ];
   msg.template_id = data.template_id || orderTemplateId;
 
   // если речь о сообщениях с заказом, то отсылаем мне и Даше,
   // если о чем то другом, отсылаем только мне
   personalization.bcc = data.template_id
     ? personalization.bcc.other
-    : personalization.bcc.orders;
+    // почты для заказов в зависимости от shopId
+    : personalization.bcc.orders[data.shopId];
   personalization.bcc = personalization.bcc.filter(
     item => item.email !== to.toLowerCase()
   );
