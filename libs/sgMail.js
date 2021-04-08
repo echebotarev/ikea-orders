@@ -81,14 +81,20 @@ module.exports = (to, data) => {
   // если о чем то другом, отсылаем только мне
   personalization.bcc = data.template_id
     ? personalization.bcc.other
-    // почты для заказов в зависимости от shopId
-    : personalization.bcc.orders[data.shopId];
+    : // почты для заказов в зависимости от shopId
+      personalization.bcc.orders[data.shopId];
+
   personalization.bcc = personalization.bcc.filter(
     item => item.email !== to.toLowerCase()
   );
-  // фильтруем Дашину почту, чтобы ей не приходили тестовые письма
+  // фильтруем Дашину и почту Саранска, чтобы им не приходили тестовые письма
   personalization.bcc = personalization.bcc.filter(
-    item => !(item.email === 'dysya84@mail.ru' && to === 'e.chebotarew@ya.ru')
+    item =>
+      !(
+        (item.email === 'dysya84@mail.ru' ||
+          item.email === 'zakaz@ikea13.ru') &&
+        to === 'e.chebotarew@ya.ru'
+      )
   );
 
   personalization.to = [{ email: to }];
