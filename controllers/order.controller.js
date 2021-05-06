@@ -1,5 +1,5 @@
-const OrderModel = require('../../model/order');
-const handleError = require('../handleError');
+const OrderModel = require('./../model/order');
+const handleError = require('../libs/handleError');
 
 const Order = {
   async get(cookieId) {

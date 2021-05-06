@@ -1,5 +1,5 @@
-const UserModel = require('../../model/user');
-const handleError = require('../handleError');
+const UserModel = require('./../model/user');
+const handleError = require('../libs/handleError');
 
 const User = {
   async get(cookieId) {
