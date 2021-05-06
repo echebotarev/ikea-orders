@@ -14,6 +14,10 @@ async function CreateUser(email, password) {
       return data;
     })
     .catch(error => {
+      if (error.errors.email) {
+        return Object.assign(error.errors.email.properties, { result: 'error' });
+      }
+
       throw error;
     });
 }

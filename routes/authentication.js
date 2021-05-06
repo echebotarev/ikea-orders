@@ -13,14 +13,15 @@ router.post('/register', async (req, res) => {
   const { password, email } = req.body;
   const hashedPassword = await db.Admin.generatePasswordHash(password);
 
-  await db.Admin.CreateUser(email, hashedPassword)
+  let result;
+  try {
+    result = await db.Admin.CreateUser(email, hashedPassword);
+  }
+  catch (e) {
+    console.error('Err', e);
+  }
 
-    .then(() => {
-      res.send({ message: 'An account has been created!' });
-    })
-    .catch(err => {
-      throw err;
-    });
+  res.send(result);
 });
 
 module.exports = router;
