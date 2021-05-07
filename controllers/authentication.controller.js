@@ -2,6 +2,8 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 
 const LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+
 const jwt = require('jsonwebtoken');
 
 const Admin = require('../model/admin');
@@ -22,6 +24,15 @@ function signUserToken(user) {
   );
 }
 
+const tokenExtractor = function(req) {
+  let token = null;
+  if (req.req && req.req.headers && req.req.headers.authorization) {
+    const rawToken = req.req.headers.authorization.toString();
+    token = rawToken.slice(rawToken.indexOf(' ') + 1, rawToken.length);
+  }
+  return token;
+};
+
 async function generatePasswordHash(plainPassword) {
   const salt = await bcrypt.genSalt(12);
   return await bcrypt.hash(plainPassword, salt);
@@ -34,7 +45,9 @@ async function CreateUser(email, password) {
     })
     .catch(error => {
       if (error.errors.email) {
-        return Object.assign(error.errors.email.properties, { result: 'error' });
+        return Object.assign(error.errors.email.properties, {
+          result: 'error'
+        });
       }
 
       throw error;
@@ -71,6 +84,30 @@ passport.use(
             return done(null, user);
           } else {
             return done(null, false, { message: 'Authentication failed' });
+          }
+        })
+        .catch(err => {
+          return done(err);
+        });
+    }
+  )
+);
+
+passport.use(
+  new JwtStrategy(
+    {
+      jwtFromRequest: tokenExtractor,
+      secretOrKey: authUserSecret
+    },
+    function(jwtPayload, done) {
+      return GetUser(jwtPayload.email)
+        .then(user => {
+          if (user) {
+            return done(null, {
+              email: user.email
+            });
+          } else {
+            return done(null, false, 'Failed');
           }
         })
         .catch(err => {

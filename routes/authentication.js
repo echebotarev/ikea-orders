@@ -20,7 +20,17 @@ router.post('/login', async (req, res) => {
 });
 
 router.get('/user', async (req, res) => {
-  res.send({ ok: 'ok' });
+  passport.authenticate('jwt', { session: false }, (err, user, message) => {
+    if (err) {
+      console.log('Authenticate jwt Error 400:', err);
+      return res.status(400).send(err);
+    } else if (!user) {
+      console.log('Authenticate jwt Error 403:', message);
+      return res.status(403).send({ message });
+    } else {
+      return res.send({ user });
+    }
+  })(res, req);
 });
 
 router.post('/register', async (req, res) => {
