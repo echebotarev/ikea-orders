@@ -1,7 +1,10 @@
 const path = require('path');
 const express = require('express');
 
+const dotenv = require('dotenv');
 const config = require('./libs/config');
+
+dotenv.config();
 
 // eslint-disable-next-line no-unused-vars
 const mongoose = require('./libs/connectMongoose');

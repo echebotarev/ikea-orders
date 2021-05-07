@@ -1,9 +1,23 @@
 const express = require('express');
-const db = require('./../libs/db');
+const passport = require('passport');
 
 const router = express.Router();
+const db = require('./../libs/db');
 
-router.post('/login', async (req, res) => {});
+router.post('/login', async (req, res) => {
+  passport.authenticate('local', { session: false }, (err, user, message) => {
+    if (err) {
+      console.log('Authenticate local Error 500:', err);
+      return res.status(500).send(err);
+    } else if (!user) {
+      console.log('Authenticate local Error 403:', message);
+      return res.status(403).send(message);
+    } else {
+      const token = db.Admin.signUserToken(user);
+      return res.send({ token });
+    }
+  })(req, res);
+});
 
 router.get('/user', async (req, res) => {
   res.send({ ok: 'ok' });
@@ -16,8 +30,7 @@ router.post('/register', async (req, res) => {
   let result;
   try {
     result = await db.Admin.CreateUser(email, hashedPassword);
-  }
-  catch (e) {
+  } catch (e) {
     console.error('Err', e);
   }
 
