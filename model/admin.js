@@ -5,6 +5,9 @@ const { Schema } = mongoose;
 const AdminSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+
+  displayName: { type: String, default: '' },
+
   /**
    * @types [
    *    buyer - доступна ф-ия закупки товаров,
@@ -12,6 +15,7 @@ const AdminSchema = new Schema({
    *    admin - доступно всё вышеперечисленное,
    *            плюс настройки самого магазина - скидки, даты поставки, адреса,
    *    superAdmin - доступно все вышеперечисленное, плюс управление контентом магазина
+   *                 и данными других админов
    * ]
    * */
   privilege: { type: Array, default: [] },

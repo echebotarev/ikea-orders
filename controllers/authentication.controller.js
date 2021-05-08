@@ -25,11 +25,15 @@ function signUserToken(user) {
 }
 
 const tokenExtractor = function(req) {
+  const rawToken =
+    (req.req && req.req.headers && req.req.headers.authorization.toString()) ||
+    (req && req.headers && req.headers.authorization.toString());
   let token = null;
-  if (req.req && req.req.headers && req.req.headers.authorization) {
-    const rawToken = req.req.headers.authorization.toString();
+
+  if (rawToken) {
     token = rawToken.slice(rawToken.indexOf(' ') + 1, rawToken.length);
   }
+
   return token;
 };
 
@@ -104,7 +108,10 @@ passport.use(
         .then(user => {
           if (user) {
             return done(null, {
-              email: user.email
+              displayName: user.displayName,
+              email: user.email,
+              privilege: user.privilege,
+              shopId: user.shopIds
             });
           } else {
             return done(null, false, 'Failed');
