@@ -58,6 +58,9 @@ module.exports = (to, data) => {
         },
         {
           email: 'dysya84@mail.ru'
+        },
+        {
+          email: 'sofya.lenkova@gmail.com'
         }
       ],
       '002': [
