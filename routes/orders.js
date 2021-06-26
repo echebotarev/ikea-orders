@@ -59,7 +59,7 @@ router
     const output = Object.assign({}, order.toJSON(), req.body);
 
     sendMail(email, output);
-    crm.send(output);
+    // crm.send(output);
 
     res.send(order);
   });
