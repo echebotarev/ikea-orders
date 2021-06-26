@@ -105,6 +105,8 @@ module.exports = (to, data) => {
 
   msg.personalizations = [personalization];
 
+  console.log('Person', personalization);
+
   sgMail
     .send(msg)
     .then()
