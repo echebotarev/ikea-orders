@@ -4,6 +4,7 @@ const config = require('./config');
 const handleError = require('./handleError');
 
 mongoose.set('useFindAndModify', false);
+mongoose.SchemaTypes.String.set('trim', true);
 
 mongoose.connect(config.get('mongoose:uri') + config.get('mongoose:dbname'));
 
