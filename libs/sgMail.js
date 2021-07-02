@@ -100,7 +100,7 @@ module.exports = (to, data) => {
       )
   );
 
-  personalization.to = [{ email: to }];
+  personalization.to = [{ email: to.trim() }];
   personalization.dynamic_template_data = data;
 
   msg.personalizations = [personalization];
