@@ -24,7 +24,7 @@ function signUserToken(user) {
   );
 }
 
-const tokenExtractor = function(req) {
+function tokenExtractor(req) {
   const rawToken =
     (req.req && req.req.headers && req.req.headers.authorization.toString()) ||
     (req && req.headers && req.headers.authorization.toString());
@@ -35,7 +35,7 @@ const tokenExtractor = function(req) {
   }
 
   return token;
-};
+}
 
 async function generatePasswordHash(plainPassword) {
   const salt = await bcrypt.genSalt(12);
