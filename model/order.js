@@ -55,6 +55,11 @@ const Order = new Schema({
     default: false
   },
 
+  status: {
+    type: String,
+    default: 'new'
+  },
+
   // собран ли заказ
   assembled: {
     type: Boolean,
