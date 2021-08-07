@@ -15,6 +15,7 @@ const mongoose = require('./libs/connectMongoose');
 const orders = require('./routes/orders');
 const available = require('./routes/available');
 const panel = require('./routes/panel');
+const sale = require('./routes/sale');
 const authentication = require('./routes/authentication');
 const api = require('./routes/api');
 /** ROUTES * */
@@ -30,6 +31,7 @@ app.get('/', (req, res) => res.end('API is Ok'));
 app.use('/orders', orders);
 app.use('/available', available);
 app.use('/panel', panel);
+app.use('/sale', sale);
 app.use('/auth', authentication);
 app.use('/api', passport.authenticate('jwt', { session: false }), api);
 

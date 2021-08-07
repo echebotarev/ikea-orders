@@ -21,21 +21,23 @@ const SaleProduct = {
   },
 
   async create(payload) {
-    const order = new SaleProductModel(payload);
+    const saleProduct = new SaleProductModel(payload);
 
     try {
-      await order.save();
+      await saleProduct.save();
     } catch (e) {
       handleError(e);
     }
 
-    return order;
+    return saleProduct;
   },
 
-  async add({ shopId, productId, qnt }) {
-    const increment = { $inc: { qnt } };
+  async add(payload) {
+    const { shopId, productId, qnt } = payload;
     const product = await SaleProduct.get(shopId, productId);
+
     if (product) {
+      const increment = { $inc: { qnt } };
       await SaleProductModel.updateOne(
         {
           shopId,
@@ -45,7 +47,7 @@ const SaleProduct = {
       );
     }
     else {
-      await SaleProduct.create({ shopId, productId, qnt });
+      await SaleProduct.create(payload);
     }
 
     return true;
