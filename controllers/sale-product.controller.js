@@ -3,16 +3,16 @@ const handleError = require('../libs/handleError');
 
 const SaleProduct = {
   /**
-  *  @param shopId - id магазина
+   *  @param shopId - id магазина
    * @param [productId] - id товара согласно IKEA
    *
    * @description Если передан id магазина, то возвращаем все товары
    * @description Если передан id товара, то только один товар
-  * */
+   * */
   async get(shopId, productId) {
     if (productId) {
       return SaleProductModel.findOne({
-        identifier: productId,
+        productId,
         shopId
       });
     }
@@ -41,12 +41,11 @@ const SaleProduct = {
       await SaleProductModel.updateOne(
         {
           shopId,
-          identifier: productId
+          productId
         },
         increment
       );
-    }
-    else {
+    } else {
       await SaleProduct.create(payload);
     }
 
@@ -58,7 +57,7 @@ const SaleProduct = {
     await SaleProductModel.updateOne(
       {
         shopId,
-        identifier: productId
+        productId
       },
       decrement
     );
@@ -69,7 +68,7 @@ const SaleProduct = {
     }
 
     return true;
-  },
+  }
 };
 
 module.exports = SaleProduct;
