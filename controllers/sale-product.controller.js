@@ -63,8 +63,6 @@ const SaleProduct = {
     );
 
     const product = await SaleProduct.get(shopId, productId);
-    console.log('Test');
-
     if (product.qnt <= 0) {
       await SaleProductModel.deleteOne({ shopId, productId });
     }
