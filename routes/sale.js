@@ -11,7 +11,7 @@ router
   })
 
   /**
-   * @exmple
+   * @example
    * await fetch('http://localhost:7070/sale/product', {
         method: 'POST',
         headers: {
