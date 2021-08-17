@@ -5,8 +5,8 @@ const router = express.Router();
 
 router
   .get('/products', async (req, res) => {
-    const { domaDomaShopId = '001' } = req.cookies;
-    const products = await db.SaleProduct.get(domaDomaShopId);
+    const { shopId = '001' } = req.query;
+    const products = await db.SaleProduct.get(shopId);
     res.send(products);
   })
 
