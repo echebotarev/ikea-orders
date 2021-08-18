@@ -10,6 +10,8 @@ const sgMail = require('../libs/sgMail');
 const getAvailable = require('../libs/getAvailable');
 const timeout = require('../libs/timeout');
 
+const getShopData = require('./../utils/getShopData');
+
 const checkItemAvailable = async payload => {
   const result = await getAvailable(payload);
   return Object.assign(payload, result);
@@ -110,7 +112,8 @@ router
     res.send('Ok');
   })
   .put('/', async (req, res) => {
-    const { cookieId, ikeaShopId } = req.cookies;
+    const { ikeaShopId = samaraShopId } = getShopData(req);
+    const { cookieId } = req.cookies;
     const { email } = req.body;
     const { id } = req.body;
     const { type } = req.body;

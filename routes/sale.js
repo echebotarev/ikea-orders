@@ -3,10 +3,12 @@ const db = require('./../libs/db');
 
 const router = express.Router();
 
+const getShopData = require('./../utils/getShopData');
+
 router
   .get('/products', async (req, res) => {
-    const { shopId = '001' } = req.query;
-    const products = await db.SaleProduct.get(shopId);
+    const { domaDomaShopId = '001' } = getShopData(req);
+    const products = await db.SaleProduct.get(domaDomaShopId);
     res.send(products);
   })
 
@@ -25,7 +27,7 @@ router
       });
    * */
   .post('/product', async (req, res) => {
-    const { domaDomaShopId = '001' } = req.cookies;
+    const { domaDomaShopId = '001' } = getShopData(req);
     const product = await db.SaleProduct.create(
       Object.assign(req.body, { shopId: domaDomaShopId })
     );
@@ -46,7 +48,7 @@ router
       });
    * */
   .delete('/product', async (req, res) => {
-    const { domaDomaShopId = '001' } = req.cookies;
+    const { domaDomaShopId = '001' } = getShopData(req);
     const product = await db.SaleProduct.delete(
       Object.assign(req.body, { shopId: domaDomaShopId })
     );
