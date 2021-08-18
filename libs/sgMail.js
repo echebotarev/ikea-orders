@@ -73,6 +73,20 @@ module.exports = (to, data) => {
         {
           email: 'zakaz@ikea13.ru'
         }
+      ],
+      '003': [
+        {
+          email: '9111721308@mail.ru'
+        },
+        {
+          email: 'dysya84@mail.ru'
+        },
+        {
+          email: 'sofya.kluchnikova@yandex.ru'
+        },
+        {
+          email: 'lukmanova.akmaral91@gmail.com'
+        }
       ]
     },
     other: [
