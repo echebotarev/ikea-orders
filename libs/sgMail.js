@@ -13,6 +13,22 @@ let msg = {
   template_id: 'd-230c4bb4715b49339d6c4804f58efdb8'
 };
 
+const setFromEmail = shopId => {
+  switch (shopId) {
+    case '001':
+      return { email: 'aktau@doma-doma.org' };
+
+    case '002':
+      return { email: 'saransk@doma-doma.org' };
+
+    case '003':
+      return { email: 'uralsk@doma-doma.org' };
+
+    default:
+      return { email: 'info@doma-doma.org' };
+  }
+};
+
 let personalization = {
   to: [
     {
@@ -122,6 +138,7 @@ module.exports = (to, data) => {
   personalization.dynamic_template_data = data;
 
   msg.personalizations = [personalization];
+  msg.from = setFromEmail(data.shopId);
 
   console.log('Person', personalization);
 
