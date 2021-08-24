@@ -102,6 +102,9 @@ module.exports = (to, data) => {
         },
         {
           email: 'lukmanova.akmaral91@gmail.com'
+        },
+        {
+          email: 'andrey.yarosh.90@list.ru'
         }
       ]
     },
