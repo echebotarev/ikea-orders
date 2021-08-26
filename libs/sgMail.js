@@ -70,7 +70,7 @@ module.exports = (to, data) => {
     orders: {
       '001': [
         {
-          email: 'eg.chebotarev@gmail.com'
+          email: '9111721308@mail.ru'
         },
         {
           email: 'dysya84@mail.ru'
