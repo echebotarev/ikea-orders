@@ -23,7 +23,20 @@ router
     let { orders } = req.query;
     orders = await db.Order.getOrderById(orders ? orders.split(',') : []);
     const volumes = getVolume(orders);
-    res.send(volumes);
+
+    const total = volumes.reduce((acc, value) => {
+      acc.volume += value.volume;
+      acc.volumeWeight += value.volumeWeight;
+      acc.weight += value.weight;
+
+      return acc;
+    }, {
+      volume: 0,
+      volumeWeight: 0,
+      weight: 0
+    });
+
+    res.send({ total, volumes });
   });
 
 module.exports = router;
