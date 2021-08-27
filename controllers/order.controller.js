@@ -14,6 +14,13 @@ const Order = {
     return OrderModel.findOne({ cookieId, deleted: false, checkout: false });
   },
 
+  async getOrderById(orderIds) {
+    return OrderModel.find({
+      orderId: { $in: orderIds },
+      deleted: false,
+    });
+  },
+
   async create(cookieId, payload) {
     const order = new OrderModel({ cookieId, products: [payload] });
 

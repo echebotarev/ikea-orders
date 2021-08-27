@@ -1,5 +1,3 @@
-const { products } = require('./3005');
-
 let volume = 0;
 let volumeWeight = 0;
 let weight = 0;
@@ -65,47 +63,50 @@ const getWeight = measurements => {
   return w;
 };
 
-products.map(product => {
-  const productQnt = product.qnt;
-  const packages =
-    product.information.productDetailsProps.accordionObject.packaging
-      .contentProps.packages;
+const calculateProducts = products =>
+  products.map(product => {
+    const productQnt = product.qnt;
+    const packages =
+      product.information.productDetailsProps.accordionObject.packaging
+        .contentProps.packages;
 
-  let scopeVolume = 0;
-  let scopeVolumeWeight = 0;
-  let scopeWeight = 0;
-  packages.map(pack => {
-    console.log('Name', pack.name, pack.typeName, pack.articleNumber.value);
-    console.log('Package Qnt', pack.quantity.value);
-    console.log('Measurement', pack.measurements);
-    console.log(
-      '========================================================================'
-    );
+    let scopeVolume = 0;
+    let scopeVolumeWeight = 0;
+    let scopeWeight = 0;
+    packages.map(pack => {
+      console.log('Name', pack.name, pack.typeName, pack.articleNumber.value);
+      console.log('Package Qnt', pack.quantity.value);
+      console.log('Measurement', pack.measurements);
+      console.log(
+        '========================================================================'
+      );
 
-    if (pack.measurements.length === 0) {
-      return false;
-    }
+      if (pack.measurements.length === 0) {
+        return false;
+      }
 
-    scopeVolume = getVolume(pack.measurements) * pack.quantity.value;
-    scopeVolumeWeight =
-      getVolumeWeight(pack.measurements) * pack.quantity.value;
-    scopeWeight = getWeight(pack.measurements) * pack.quantity.value;
+      scopeVolume = getVolume(pack.measurements) * pack.quantity.value;
+      scopeVolumeWeight =
+        getVolumeWeight(pack.measurements) * pack.quantity.value;
+      scopeWeight = getWeight(pack.measurements) * pack.quantity.value;
 
-    console.log('Scope Volume', scopeVolume);
-    console.log('Scope Volume Weight', scopeVolume);
-    console.log('Scope Weight', scopeWeight);
+      console.log('Scope Volume', scopeVolume);
+      console.log('Scope Volume Weight', scopeVolume);
+      console.log('Scope Weight', scopeWeight);
+      console.log('====================================');
+    });
+
+    volume += scopeVolume * productQnt;
+    volumeWeight += scopeVolumeWeight * productQnt;
+    weight += scopeWeight * productQnt;
+
+    console.log('Volume', volume);
+    console.log('Volume Weight', volumeWeight);
+    console.log('Weight', weight);
     console.log('====================================');
+
+    return { volume, volumeWeight, weight };
   });
-
-  volume += scopeVolume * productQnt;
-  volumeWeight += scopeVolumeWeight * productQnt;
-  weight += scopeWeight * productQnt;
-
-  console.log('Volume', volume);
-  console.log('Volume Weight', volumeWeight);
-  console.log('Weight', weight);
-  console.log('====================================');
-});
 
 console.log('Volume', volume);
 console.log('Volume Weight', volumeWeight);
@@ -114,3 +115,5 @@ console.log('Weight', weight);
 console.log('Max Width', maxWidth);
 console.log('Max Height', maxHeight);
 console.log('Max Length', maxLength);
+
+module.exports = orders => orders.map(order => ({ [order.id]: calculateProducts(order.products) }));
