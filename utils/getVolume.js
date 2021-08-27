@@ -116,4 +116,5 @@ console.log('Max Width', maxWidth);
 console.log('Max Height', maxHeight);
 console.log('Max Length', maxLength);
 
-module.exports = orders => orders.map(order => ({ [order.id]: calculateProducts(order.products) }));
+module.exports = orders =>
+  orders.map(order => ({ [order.orderId]: calculateProducts(order.products) }));
