@@ -22,8 +22,8 @@ router
   .get('/volume', async (req, res) => {
     let { orders } = req.query;
     orders = await db.Order.getOrderById(orders ? orders.split(',') : []);
-    console.log('Ids', getVolume(orders));
-    res.send('Ok');
+    const volumes = getVolume(orders);
+    res.send(volumes);
   });
 
 module.exports = router;
