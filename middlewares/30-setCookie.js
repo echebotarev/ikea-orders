@@ -1,6 +1,8 @@
 const config = require('./../libs/config');
 
 const setCookie = options => (req, res, next) => {
+  // чаще всего cookieId берется отсюда и записывается в cookie,
+  // для корректной дальнейшей работы
   const { cookieId } = req.query;
 
   const { name, maxAge } = options;
