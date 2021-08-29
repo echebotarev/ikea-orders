@@ -3,6 +3,10 @@ const handleError = require('../libs/handleError');
 
 const Order = {
   async get(cookieId) {
+    if (!cookieId) {
+      return null;
+    }
+
     if (Array.isArray(cookieId)) {
       return OrderModel.find({
         cookieId: { $in: cookieId },
