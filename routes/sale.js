@@ -14,7 +14,7 @@ router
 
   /**
    * @example
-   * await fetch('http://localhost:7070/sale/product', {
+   * await fetch('https://orders.doma-doma.org/sale/product?domaDomaShopId=001', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -28,6 +28,8 @@ router
    * */
   .post('/product', async (req, res) => {
     const { domaDomaShopId = '001' } = getShopData(req);
+    console.log('ShopId', domaDomaShopId);
+
     const product = await db.SaleProduct.create(
       Object.assign(req.body, { shopId: domaDomaShopId })
     );
@@ -36,7 +38,7 @@ router
 
   /**
    * @example
-   * await fetch('http://localhost:7070/sale/product', {
+   * await fetch('https://orders.doma-doma.org/sale/product?domaDomaShopId=001', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -49,10 +51,10 @@ router
    * */
   .delete('/product', async (req, res) => {
     const { domaDomaShopId = '001' } = getShopData(req);
-    const product = await db.SaleProduct.delete(
+    await db.SaleProduct.delete(
       Object.assign(req.body, { shopId: domaDomaShopId })
     );
-    res.send(product);
+    res.send('Ok');
   });
 
 module.exports = router;
