@@ -79,9 +79,6 @@ module.exports = (to, data) => {
           email: 'sofya.kluchnikova@yandex.ru'
         },
         {
-          email: 'lukmanova.akmaral91@gmail.com'
-        },
-        {
           email: '92zayka777@gmail.com'
         }
       ],
@@ -102,9 +99,6 @@ module.exports = (to, data) => {
         },
         {
           email: 'sofya.kluchnikova@yandex.ru'
-        },
-        {
-          email: 'lukmanova.akmaral91@gmail.com'
         },
         {
           email: 'andrey.yarosh.90@list.ru'
@@ -138,7 +132,6 @@ module.exports = (to, data) => {
       !(
         (item.email === 'dysya84@mail.ru' ||
           item.email === 'zakaz@ikea13.ru' ||
-          item.email === 'lukmanova.akmaral91@gmail.com' ||
           item.email === 'andrey.yarosh.90@list.ru' ||
           item.email === 'sofya.kluchnikova@yandex.ru' ||
           item.email === '92zayka777@gmail.com') &&
