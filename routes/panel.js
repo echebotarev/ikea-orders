@@ -2,6 +2,8 @@ const express = require('express');
 const db = require('./../libs/db');
 
 const getVolume = require('./../utils/getVolume');
+const getDeliveryCost = require('./../utils/getDeliveryCost');
+const getShopData = require('./../utils/getShopData');
 const isValidDate = require('./../utils/isValidDate');
 
 const router = express.Router();
@@ -20,6 +22,8 @@ router
     res.send(orders);
   })
   .get('/volume', async (req, res) => {
+    const { domaDomaShopId } = getShopData(req);
+
     let { orders } = req.query;
     orders = await db.Order.getOrderById(orders ? orders.split(',') : []);
     const volumes = getVolume(orders);
@@ -36,7 +40,9 @@ router
       weight: 0
     });
 
-    res.send({ total, volumes });
+    const deliveryCost = getDeliveryCost({ shopId: domaDomaShopId, volumes });
+
+    res.send({ total, deliveryCost, volumes });
   });
 
 module.exports = router;
