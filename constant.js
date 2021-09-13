@@ -5,7 +5,7 @@ module.exports = {
     '003': {
       minPrice: 3000,
       maxPrice: 10000,
-      priceForKg: 300
+      priceForKg: 50
     }
   }
 };
