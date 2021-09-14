@@ -56,16 +56,20 @@ router
     let results = await checkItemsAvailable(expectedItems);
 
     // оставляем те, что появились
-    results = results.filter(
-      result => {
-        if (result.StockAvailability && result.StockAvailability.RetailItemAvailability) {
-          return parseInt(result.StockAvailability.RetailItemAvailability.AvailableStock['@']) > 0;
-        }
-        else {
-          return false;
-        }
+    results = results.filter(result => {
+      if (
+        result.StockAvailability &&
+        result.StockAvailability.RetailItemAvailability
+      ) {
+        return (
+          parseInt(
+            result.StockAvailability.RetailItemAvailability.AvailableStock['@']
+          ) > 0
+        );
+      } else {
+        return false;
       }
-    );
+    });
     const ids = results.map(result => result.id);
 
     // eslint-disable-next-line new-cap
@@ -95,17 +99,27 @@ router
       // });
 
       output[result.email] = output[result.email]
-        ? [...output[result.email], result.id]
-        : [result.id];
+        ? [...output[result.email], { id: result.id, comment: result.comment }]
+        : [{ id: result.id, comment: result.comment }];
     }
 
     // отправляем
-    Object.entries(output).forEach(([email, identifiers]) =>
+    Object.entries(output).forEach(([email, items]) =>
       sgMail(email, {
         template_id: 'd-fd20e725203b4591b653c60f45fe60ba',
-        products: products.filter(product =>
-          identifiers.includes(product.identifier)
-        )
+        products: products
+          .filter(
+            product =>
+              // identifiers.includes(product.identifier)
+              // eslint-disable-next-line implicit-arrow-linebreak
+              !!items.find(item => item.id === product.identifier)
+          )
+          .map(product =>
+            Object.assign(product, {
+              comment: items.find(item => item.id === product.identifier)
+                .comment
+            })
+          )
       })
     );
 

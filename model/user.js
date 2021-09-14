@@ -34,6 +34,7 @@ const User = new Schema({
    *    id: [id],
    *    shopId: [shopId],
    *    email: [email],
+   *    comment: [String],
    *    createdAt: [Date.now]
    * }
    * */

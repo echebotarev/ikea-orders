@@ -31,12 +31,16 @@ const User = {
         cookieId,
         'expectedItems.id': payload.id
       },
-      { 'expectedItems.$.createdAt': Date.now() }
+      {
+        'expectedItems.$.createdAt': Date.now(),
+        'expectedItems.$.comment': payload.comment
+      }
     );
 
     if (result.nModified === 0) {
       await user.expectedItems.push({
         email: payload.email,
+        comment: payload.comment,
         id: payload.id,
         ikeaShopId: payload.ikeaShopId,
         type: payload.type,
