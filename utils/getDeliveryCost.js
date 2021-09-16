@@ -19,5 +19,5 @@ module.exports = ({ shopId, volumes = [] }) => {
     return prices.maxPrice;
   }
 
-  return price;
+  return Math.floor(price);
 };
