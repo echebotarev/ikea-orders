@@ -78,10 +78,10 @@ const calculateProducts = products => {
         return false;
       }
 
-      scopeVolume = getVolume(pack.measurements) * pack.quantity.value;
-      scopeVolumeWeight =
+      scopeVolume += getVolume(pack.measurements) * pack.quantity.value;
+      scopeVolumeWeight +=
         getVolumeWeight(pack.measurements) * pack.quantity.value;
-      scopeWeight = getWeight(pack.measurements) * pack.quantity.value;
+      scopeWeight += getWeight(pack.measurements) * pack.quantity.value;
     });
 
     volume += scopeVolume * productQnt;
