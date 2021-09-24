@@ -11,7 +11,7 @@ const Admin = require('../model/admin');
 const authUserSecret = process.env.AUTH_USER_SECRET;
 
 async function comparePasswords(plainPassword, hashedPassword) {
-  return await bcrypt.compare(plainPassword, hashedPassword);
+  return bcrypt.compare(plainPassword, hashedPassword);
 }
 
 function signUserToken(user) {
@@ -39,11 +39,11 @@ function tokenExtractor(req) {
 
 async function generatePasswordHash(plainPassword) {
   const salt = await bcrypt.genSalt(12);
-  return await bcrypt.hash(plainPassword, salt);
+  return bcrypt.hash(plainPassword, salt);
 }
 
 async function CreateUser(email, password) {
-  return await Admin.create({ email, password })
+  return Admin.create({ email, password })
     .then(data => {
       return data;
     })
@@ -59,7 +59,7 @@ async function CreateUser(email, password) {
 }
 
 async function GetUser(email) {
-  return await Admin.findOne({ email })
+  return Admin.findOne({ email })
     .then(data => {
       return data;
     })
@@ -74,7 +74,7 @@ passport.use(
       usernameField: 'email',
       passwordField: 'password'
     },
-    async function(email, password, done) {
+    async (email, password, done) => {
       await GetUser(email)
         .then(user => {
           return user;
@@ -103,7 +103,7 @@ passport.use(
       jwtFromRequest: tokenExtractor,
       secretOrKey: authUserSecret
     },
-    function(jwtPayload, done) {
+    (jwtPayload, done) => {
       return GetUser(jwtPayload.email)
         .then(user => {
           if (user) {
