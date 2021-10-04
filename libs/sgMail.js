@@ -24,6 +24,9 @@ const setFromEmail = shopId => {
     case '003':
       return { email: 'uralsk@doma-doma.org' };
 
+    case '004':
+      return { email: 'atyrau@doma-doma.org' };
+
     default:
       return { email: 'info@doma-doma.org' };
   }
@@ -105,6 +108,20 @@ module.exports = (to, data) => {
         },
         {
           email: 'valya___1968@mail.ru'
+        },
+        {
+          email: '92zayka777@gmail.com'
+        },
+        {
+          email: 'elfinab19@gmail.com'
+        }
+      ],
+      '004': [
+        {
+          email: '9111721308@mail.ru'
+        },
+        {
+          email: 'dysya84@mail.ru'
         },
         {
           email: '92zayka777@gmail.com'
