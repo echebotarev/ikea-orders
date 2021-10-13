@@ -3,8 +3,8 @@ module.exports = {
     '001': null,
     '002': null,
     '003': {
-      minPrice: 3000,
-      maxPrice: 10000,
+      minPrice: 5000,
+      maxPrice: 5000,
       priceForKg: 50
     },
     '004': {
