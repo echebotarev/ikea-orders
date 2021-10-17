@@ -128,6 +128,9 @@ module.exports = (to, data) => {
         },
         {
           email: 'elfinab19@gmail.com'
+        },
+        {
+          email: 'ipgrafinin63@mail.ru'
         }
       ]
     },
@@ -158,7 +161,8 @@ module.exports = (to, data) => {
           item.email === 'valya___1968@mail.ru' ||
           item.email === 'sofya.kluchnikova@yandex.ru' ||
           item.email === 'elfinab19@gmail.com' ||
-          item.email === '92zayka777@gmail.com') &&
+          item.email === '92zayka777@gmail.com' ||
+          item.email === 'ipgrafinin63@mail.ru') &&
         to === 'e.chebotarew@ya.ru'
       )
   );
