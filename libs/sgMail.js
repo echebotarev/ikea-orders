@@ -79,9 +79,6 @@ module.exports = (to, data) => {
           email: 'dysya84@mail.ru'
         },
         {
-          email: 'sofya.kluchnikova@yandex.ru'
-        },
-        {
           email: '92zayka777@gmail.com'
         },
         {
@@ -102,9 +99,6 @@ module.exports = (to, data) => {
         },
         {
           email: 'dysya84@mail.ru'
-        },
-        {
-          email: 'sofya.kluchnikova@yandex.ru'
         },
         {
           email: 'valya___1968@mail.ru'
