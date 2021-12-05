@@ -17,10 +17,15 @@ const router = express.Router();
 //   percent: 50
 // });
 
-router.get('/cities', async (req, res) => {
-  const shopIds = req.query.shopIds.split(',');
-  const cities = await db.City.get(shopIds);
-  return res.send(cities);
-});
+router
+  .get('/cities', async (req, res) => {
+    const shopIds = req.query.shopIds.split(',');
+    const cities = await db.City.get(shopIds);
+    return res.send(cities);
+  })
+  .get('/orders', async (req, res) => {
+    const orders = await db.Order.find(req.query);
+    res.send(orders);
+  });
 
 module.exports = router;

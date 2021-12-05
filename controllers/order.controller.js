@@ -18,10 +18,14 @@ const Order = {
     return OrderModel.findOne({ cookieId, deleted: false, checkout: false });
   },
 
+  async find(payload) {
+    return OrderModel.find(payload);
+  },
+
   async getOrderById(orderIds) {
     return OrderModel.find({
       orderId: { $in: orderIds },
-      deleted: false,
+      deleted: false
     });
   },
 
