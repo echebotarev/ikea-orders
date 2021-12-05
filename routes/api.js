@@ -26,6 +26,11 @@ router
   .get('/orders', async (req, res) => {
     const orders = await db.Order.find(req.query);
     res.send(orders);
+  })
+  .put('/orders/:orderId', async (req, res) => {
+    const { orderId } = req.params;
+    const order = await db.Order.updateOrder(orderId, req.body);
+    res.send(order);
   });
 
 module.exports = router;

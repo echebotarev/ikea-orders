@@ -60,6 +60,16 @@ const Order = new Schema({
     default: false
   },
 
+  assembly: {
+    type: Number,
+    default: 0
+  },
+
+  deliveryCost: {
+    type: Number,
+    default: 0
+  },
+
   status: {
     type: String,
     default: 'new'
