@@ -24,6 +24,11 @@ const Order = new Schema({
     default: null
   },
 
+  shopId: {
+    type: String,
+    default: ''
+  },
+
   name: {
     type: String,
     default: null
