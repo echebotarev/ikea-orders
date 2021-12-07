@@ -24,6 +24,16 @@ const Order = new Schema({
     default: null
   },
 
+  kaspiOrderId: {
+    type: Number,
+    default: null
+  },
+
+  weekNumber: {
+    type: String,
+    default: null
+  },
+
   shopId: {
     type: String,
     default: ''

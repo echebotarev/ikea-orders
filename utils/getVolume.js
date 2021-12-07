@@ -68,7 +68,7 @@ const calculateProducts = products => {
     const productQnt = product.qnt;
     const {
       packages
-    } = product.information.productDetailsProps.accordionObject.packaging.contentProps;
+    } = product.information.dimensionProps.packaging.contentProps;
 
     let scopeVolume = 0;
     let scopeVolumeWeight = 0;
