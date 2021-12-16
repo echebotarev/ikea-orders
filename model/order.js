@@ -64,34 +64,8 @@ const Order = new Schema({
     default: []
   },
 
-  // нужна ли сборка
-  isAssembly: {
-    type: Boolean,
-    default: false
-  },
-
-  assembly: {
-    type: Number,
-    default: 0
-  },
-
-  deliveryCost: {
-    type: Number,
-    default: 0
-  },
-
-  status: {
-    type: String,
-    default: 'new'
-  },
-
-  // собран ли заказ
-  assembled: {
-    type: Boolean,
-    default: false
-  },
-  // отправлен
-  sent: {
+  // заказ оформлен
+  checkout: {
     type: Boolean,
     default: false
   },
@@ -105,27 +79,60 @@ const Order = new Schema({
     type: Boolean,
     default: false
   },
-  payMethod: {
-    type: String,
-    default: ''
-  },
-  // оплачен
+  // поле используется в случае оплаты на сайте.
   paid: {
     type: Boolean,
     default: false
   },
-  // заказ оформлен
-  checkout: {
+  // указываем в админке
+  paidValue: {
+    type: Number,
+    default: 0
+  },
+
+  // нужна ли сборка
+  isAssembly: {
     type: Boolean,
     default: false
+  },
+  // стоимость сборки
+  assembly: {
+    type: Number,
+    default: 0
+  },
+
+  // TODO: обработать на основном сайте
+  isDelivery: {
+    type: Boolean,
+    default: false
+  },
+  deliveryCost: {
+    type: Number,
+    default: 0
+  },
+
+  /**
+   * @example: {
+   *   type: 'percent',
+   *   value: 5
+   * }
+   * */
+  sale: {
+    type: Object,
+    default: null
+  },
+
+  status: {
+    type: String,
+    default: 'new'
+  },
+
+  payMethod: {
+    type: String,
+    default: ''
   },
   // ошибка оплаты
   errorPay: {
-    type: Boolean,
-    default: false
-  },
-  // доставлен
-  delivered: {
     type: Boolean,
     default: false
   },
