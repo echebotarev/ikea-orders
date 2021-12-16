@@ -101,7 +101,6 @@ const Order = new Schema({
     default: 0
   },
 
-  // TODO: обработать на основном сайте
   isDelivery: {
     type: Boolean,
     default: false
