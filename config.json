@@ -17,7 +17,5 @@
     "uri": "mongodb://localhost:27020/",
     "dbname": "ikea-orders",
     "ordersCollectionName": "orders"
-  },
-
-  "SENDGRID_API_KEY": "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"
+  }
 }

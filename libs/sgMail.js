@@ -1,7 +1,7 @@
 const sgMail = require('@sendgrid/mail');
-const config = require('./config');
 
-sgMail.setApiKey(config.get('SENDGRID_API_KEY'));
+const { SENDGRID_API_KEY } = process.env;
+sgMail.setApiKey(SENDGRID_API_KEY);
 
 const orderTemplateId = 'd-230c4bb4715b49339d6c4804f58efdb8';
 let msg = {
